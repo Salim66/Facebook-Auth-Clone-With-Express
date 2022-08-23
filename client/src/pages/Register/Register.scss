@@ -1,0 +1,79 @@
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .title__modal {
+        
+        .sign__up {
+            font-size: 36px;
+            color: #1c1e21;
+            font-weight: 600;
+            margin-bottom: -4px;
+        }
+
+        .its__quick {
+            color: #606770;
+            font-size: 18px;
+        }
+
+
+    }
+}
+
+.modal__form {
+
+    .first__name,
+    .surname,
+    .mobile,
+    .password,
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #CCD0D5;
+        border-color: #bdc7d8;
+        border-radius: 5px;
+    }
+
+
+    .gender__label {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #CCD0D5;
+        border-color: #bdc7d8;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .text__one {
+        font-size: 13px;       
+    } 
+
+    .button {
+        display: flex;
+        justify-content: center;
+
+        .sign__up {
+            width: 50%;
+            height: 40px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            background-color: #00a400;
+            font-weight: 18px;
+            color: #FFF;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+    }
+
+}
+
+.gender__question,
+.date__of-birth {
+    color: #606770;
+}
