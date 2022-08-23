@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import FooterAuth from '../../components/FooterAuth/FooterAuth';
 import Register from '../Register/Register';
 import './Login.scss';
@@ -35,7 +36,7 @@ function Login() {
                   <button type='submit' className='login__button'>Log In</button>
                 </div>
               </form>
-              <a href="#" className="forgotten__password">Forgotten password?</a>
+              <Link to="/forgotten-password" className="forgotten__password">Forgotten password?</Link>
               <div className="divider"></div>
               <a href="#" className="create__new-account" onClick={ handleModalShow }>Create New Account</a>
             </div>
