@@ -1,9 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 import FooterAuth from '../../components/FooterAuth/FooterAuth';
 import Register from '../Register/Register';
+import cookie from 'js-cookie';
 import './Login.scss';
+import { errorToast } from '../../utility/errorToast';
 
 function Login() {
 
@@ -16,6 +20,51 @@ function Login() {
     setModel(true);
   }
 
+  // use state for login 
+  const [input, setInput] = useState({
+    email : '',
+    password: ''
+  });
+
+  // use navigator
+  const navigator = useNavigate();
+
+  // hanlde input
+  const handleInput = (e) => {
+    setInput((prev) => ({ ...prev, [e.target.name] : e.target.value }));
+  }
+
+  // handle login form
+  const handleLoginForm = async (e) => {
+    e.preventDefault();
+
+    try {
+      
+      if( !input.email || !input.password ){
+
+        errorToast('All fields are required!');
+
+      }else {
+
+        await axios.post('http://localhost:5050/api/user/login', input)
+        .then( res => {
+
+          cookie.set('token', res.data.token);
+          cookie.set('user', JSON.stringify(res.data.user));
+
+          navigator('/');
+
+        });
+
+      }
+
+    } catch (error) {
+      swal('Error', error, 'error');
+      console.log(error);
+    }
+
+  }
+
   return (
     <>
       <div className="login__container">
@@ -26,12 +75,12 @@ function Login() {
           </div>
           <div className="login__right">
             <div className="login__card">
-              <form action="" className='login__form'>
+              <form onSubmit={ handleLoginForm } className='login__form'>
                 <div className="my-2">
-                  <input type="text" name='email' placeholder='Email address or phone number' />
+                  <input type="text" name='email' placeholder='Email address or phone number' value={ input.email } onChange={ handleInput } />
                 </div>
                 <div className="my-2">
-                  <input type="password" name='password' placeholder='Password' />
+                  <input type="password" name='password' placeholder='Password' value={ input.password } onChange={ handleInput } />
                 </div>
                 <div className="my-2">
                   <button type='submit' className='login__button'>Log In</button>

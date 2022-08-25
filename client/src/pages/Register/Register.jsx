@@ -31,8 +31,6 @@ const Register = ({ modal, setModel }) => {
         setInput((prev) => ({ ...prev, [e.target.name] : e.target.value }));
     }
 
-    console.log(input);
-
     // Hanlde user form submit
     const handleUserFormSubmit = async (e) => {
         e.preventDefault();
