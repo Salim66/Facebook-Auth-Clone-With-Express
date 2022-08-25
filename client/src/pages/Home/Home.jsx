@@ -5,10 +5,11 @@ import { GoComment } from "react-icons/go";
 import { RiShareForwardLine } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
 import './Home.scss';
+import { useContext } from 'react';
 
 const Home = () => {
 
- 
+    
 
   return (
     <>
