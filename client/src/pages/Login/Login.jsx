@@ -8,6 +8,8 @@ import Register from '../Register/Register';
 import cookie from 'js-cookie';
 import './Login.scss';
 import { errorToast } from '../../utility/errorToast';
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 function Login() {
 
@@ -34,6 +36,9 @@ function Login() {
     setInput((prev) => ({ ...prev, [e.target.name] : e.target.value }));
   }
 
+  // call context api
+  const { dispatch } = useContext(AuthContext);
+
   // handle login form
   const handleLoginForm = async (e) => {
     e.preventDefault();
@@ -51,6 +56,10 @@ function Login() {
 
           cookie.set('token', res.data.token);
           cookie.set('user', JSON.stringify(res.data.user));
+
+          // set dispatch
+          dispatch({ type: 'USER_LOGIN', payload: res.data });
+          
 
           navigator('/');
 

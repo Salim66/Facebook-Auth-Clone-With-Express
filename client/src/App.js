@@ -6,7 +6,8 @@ import RecoveryCode from './pages/RecoveryCode/RecoveryCode';
 import RecoveryPassword from './pages/RecoveryPassword/RecoveryPassword';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import swal from 'sweetalert';
+import AuthenticateUser from './middlewares/AuthenticateUser';
+import AuthRedirectUser from './middlewares/AuthRedirectUser';
 
 
 function App() {
@@ -26,11 +27,11 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={ <Home/> } />
-        <Route path="/login" element={ <Login/> } />
-        <Route path="/forgotten-password" element={ <ForgottenPassword /> } />
-        <Route path="/recovery-code/:id" element={ <RecoveryCode /> } />
-        <Route path="/recovery-password/:id" element={ <RecoveryPassword /> } />
+        <Route path="/" element={ <AuthenticateUser><Home/></AuthenticateUser> } />
+        <Route path="/login" element={ <AuthRedirectUser><Login/></AuthRedirectUser> } />
+        <Route path="/forgotten-password" element={ <AuthRedirectUser><ForgottenPassword /></AuthRedirectUser> } />
+        <Route path="/recovery-code/:id" element={ <AuthRedirectUser><RecoveryCode /></AuthRedirectUser> } />
+        <Route path="/recovery-password/:id" element={ <AuthRedirectUser><RecoveryPassword /></AuthRedirectUser> } />
       </Routes>
     </>
   );
