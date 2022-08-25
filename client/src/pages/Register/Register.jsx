@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Row, Modal } from 'react-bootstrap';
 import { AiFillQuestionCircle } from "react-icons/ai";
+import swal from 'sweetalert';
+import { errorToast } from '../../utility/errorToast';
+import { successToast } from '../../utility/successToast';
+import axios from 'axios';
 import './Register.scss';
 
 const Register = ({ modal, setModel }) => {
@@ -8,6 +12,64 @@ const Register = ({ modal, setModel }) => {
     // handle modal close
     const handleModalClose = () => {
         setModel(false);
+    }
+
+    // use state
+    const [input, setInput] = useState({
+        name: '',
+        username: '',
+        email: '',
+        password: '',
+        day: 0,
+        month: '',
+        year: 0,
+        gender: ''
+    });
+
+    // handle input
+    const handleInput = (e) => {
+        setInput((prev) => ({ ...prev, [e.target.name] : e.target.value }));
+    }
+
+    console.log(input);
+
+    // Hanlde user form submit
+    const handleUserFormSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            
+            if( !input.name || !input.username || !input.email || !input.password || !input.gender || !input.day){
+                errorToast('all fields are required!');
+            }else {
+    
+                await axios.post('http://localhost:5050/api/user/register', input)
+                .then( res => {
+    
+                    setInput({
+                        name: '',
+                        username: '',
+                        email: '',
+                        password: '',
+                        day: 0,
+                        month: '',
+                        year: 0,
+                        gender: ''
+                    });
+    
+                    setModel(false);
+    
+                    swal("Success", "Your account has been successfully created, please login!", "success");
+    
+                } );
+    
+            }
+
+        } catch (error) {
+            swal("Error", error, "error");
+            console.log(error);
+        }
+       
     }
 
   return (
@@ -25,29 +87,29 @@ const Register = ({ modal, setModel }) => {
             </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form action="#" className="modal__form">
+                <form onSubmit={ handleUserFormSubmit } className="modal__form">
                     <div className="row">
                         <div className="col-md-6">
-                            <input type="text" name='name' placeholder='First name' className='first__name' />
+                            <input type="text" name='name' placeholder='First name' className='first__name' value={ input.name } onChange={ handleInput } />
                         </div>
                         <div className="col-md-6">
-                            <input type="text" name='surname' placeholder='Surname' className='surname' />
+                            <input type="text" name='username' placeholder='Username' className='surname' value={ input.username } onChange={ handleInput } />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <input type="text" name='mobile' placeholder='Mobile number or email address' className='mobile' />
+                            <input type="text" name='email' placeholder='Mobile number or email address' className='mobile' value={ input.email } onChange={ handleInput } />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <input type="text" name='password' placeholder='New password' className='password' />
+                            <input type="password" name='password' placeholder='New password' className='password' value={ input.password } onChange={ handleInput } />
                         </div>
                     </div>
                     <div className="row">
                         <label htmlFor="">Date of Birth <a href="#"><AiFillQuestionCircle className='date__of-birth' /></a></label>
                         <div className="col-md-4">
-                            <select name="day" id="day">
+                            <select name="day" id="day" onChange={ handleInput }>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -82,7 +144,7 @@ const Register = ({ modal, setModel }) => {
                             </select>
                         </div>
                         <div className="col-md-4">
-                            <select name="month" id="month">
+                            <select name="month" id="month" onChange={ handleInput }>
                                 <option value="Jan">Jan</option>
                                 <option value="Feb">Feb</option>
                                 <option value="Mar">Mar</option>
@@ -98,7 +160,7 @@ const Register = ({ modal, setModel }) => {
                             </select>
                         </div>
                         <div className="col-md-4">
-                            <select name="year" id="year">
+                            <select name="year" id="year" onChange={ handleInput }>
                                 <option value="2022">2022</option>
                                 <option value="2021">2021</option>
                                 <option value="2020">2020</option>
@@ -140,19 +202,19 @@ const Register = ({ modal, setModel }) => {
                         <div className="col-md-4">
                             <label htmlFor="gender__male" className="gender__label">
                                 <span className='gender__male'>Male</span>
-                                <input type="radio" name="gender" id="gender__male" className="input__gender" value="Male" />
+                                <input type="radio" name="gender" id="gender__male" className="input__gender" value="Male" onChange={ handleInput } />
                             </label>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="gender__female" className="gender__label">
                                 <span className='gender__female'>Female</span>
-                                <input type="radio" name="gender" id="gender__female" className="input__gender" value="Female" />
+                                <input type="radio" name="gender" id="gender__female" className="input__gender" value="Female" onChange={ handleInput } />
                             </label>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="gender__custom" className="gender__label">
                                 <span className='gender__custom'>Custom</span>
-                                <input type="radio" name="gender" id="gender__custom" className="input__gender" value="Custom" />
+                                <input type="radio" name="gender" id="gender__custom" className="input__gender" value="Custom" onChange={ handleInput } />
                             </label>
                         </div>
                     </div>

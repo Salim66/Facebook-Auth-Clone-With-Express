@@ -17,9 +17,7 @@ const userSchema = mongoose.Schema({
     },
     cell : {
         type: String,
-        required: true,
         trim: true,
-        unique: true
     },
     username : {
         type: String,
@@ -29,6 +27,15 @@ const userSchema = mongoose.Schema({
     },
     age : {
         type: String
+    },
+    day : {
+        type: Number
+    },
+    month : {
+        type: String
+    },
+    year : {
+        type: Number
     },
     gender : {
         type: String

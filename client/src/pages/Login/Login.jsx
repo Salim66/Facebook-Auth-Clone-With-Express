@@ -11,7 +11,8 @@ function Login() {
   const [modal, setModel] = useState(false);
 
   // handle modal 
-  const handleModalShow = () => {
+  const handleModalShow = (e) => {
+    e.preventDefault();
     setModel(true);
   }
 
