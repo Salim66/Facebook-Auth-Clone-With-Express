@@ -6,10 +6,31 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
 import './Home.scss';
 import { useContext } from 'react';
+import cookie from 'js-cookie';
+import AuthContext from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
-    
+    // call context api 
+    const { dispatch } = useContext(AuthContext);
+
+    // use Navigate
+    const { navigate } = useNavigate();
+
+    // handle user logout
+    const handleUserLogout = (e) => {
+        e.preventDefault();
+
+        cookie.remove('token');
+        cookie.remove('user');
+
+        // set dispatch
+        dispatch({ type: "USER_LOGOUT" })
+
+        navigate('/login');
+
+    }
 
   return (
     <>
@@ -27,7 +48,7 @@ const Home = () => {
                                 </a>
                             </li>
                             <li className="left__li">
-                                <a href="#" className="left__link">
+                                <a href="#" className="left__link" onClick={ handleUserLogout }>
                                     <img src="https://toppng.com/uploads/preview/logout-11551056293ans77of4wy.png" alt="" className="left__link-logo" />
                                     <h5 className="username">Log Out</h5>
                                 </a>
