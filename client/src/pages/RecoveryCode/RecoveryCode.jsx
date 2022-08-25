@@ -1,8 +1,8 @@
 import React from 'react';
 import FooterAuth from '../../components/FooterAuth/FooterAuth';
-import './RecoveryPassword.scss';
+import './RecoveryCode.scss';
 
-const RecoveryPassword = () => {
+const RecoveryCode = () => {
   return (
     <>
         <div className="forgot__header-container">
@@ -19,19 +19,23 @@ const RecoveryPassword = () => {
             <div className="body__wrapper">
                 <div className="body__card">
                     <form action="#" className="body__form">
-                        <h4 className="find__you-account">Choose a new password</h4>
+                        <h4 className="find__you-account">Enter security code</h4>
                         <div className="divider"></div>
-                        <div className="please__enter-text">Create a new password that is at least 6 characters long. A strong password has a combination of letters, digits and punctuation marks.</div>
+                        <div className="please__enter-text">Please check your emails for a message with your code. Your code is 6 numbers long.</div>
                         <div className="input__group">
-                            <input type="text" name="code" id="" className="email__address" placeholder='New Password' />
+                            <input type="text" name="code" id="" className="email__address" placeholder='Enter code' />
                             <div className="input__info">
-                                <a href="#" className="password__pattern">?</a>
+                                <p className="info__text">We sent your code to:</p>
+                                <span className='info__email'>amazonjohnnydepp66@gmail.com</span>
                             </div>
                         </div>
                         <div className="divider"></div>
                         <div className="buttons">
-                            <a href="#" className="cancel__button">Cancel</a>
-                            <button className="search__button">Continue</button>           
+                            <a href="#" className="get_code">Didn't get a code?</a>
+                            <div className="button__group">
+                                <a href="#" className="cancel__button">Cancel</a>
+                                <button className="search__button">Continue</button>
+                            </div>             
                         </div>
                     </form>                    
                 </div>
@@ -42,4 +46,4 @@ const RecoveryPassword = () => {
   )
 };
 
-export default RecoveryPassword;
+export default RecoveryCode;

@@ -43,6 +43,7 @@
                     font-size: 20px;
                     padding: 0px 15px;
                     line-height: 50px;
+                    color: #90949C;
 
                     &::placeholder {
                         color: #8A8D91;
@@ -127,17 +128,16 @@
 
                 .input__group {
                     display: flex;
-                    gap: 10px;
+                    gap: 20px;
 
                     input.email__address {
-                        width: 90%;
+                        width: 50%;
                         line-height: 60px;
                         padding: 0px 20px;
                         font-size: 21px;
                         border: 1px solid #CCD0D5;
                         border-radius: 6px;
                         margin-bottom: 5px;
-                        color: #90949C;
     
                         &::placeholder {
                             color: #606770;
@@ -145,20 +145,16 @@
                     }
 
                     .input__info {
-                        width: 10%;
-                        line-height: 50px;
-                        background-color: #EBEDF0;
-                        border-radius: 6px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        cursor: pointer;
 
-                        .password__pattern {
-                            font-size: 25px;
-                            text-decoration: none;
-                            color: #4B4F56;
-                            font-weight: 600;
+
+                        .info__text {
+                            font-size: 19px;
+                            font-weight: 400;
+                            margin-bottom: 5px;
+                        }
+
+                        .info__email {
+                            font-weight: 500;
                         }
 
                     }
@@ -168,38 +164,49 @@
 
                 .buttons {
                     display: flex;
-                    justify-content: flex-end;
-                    gap: 10px;
-                  
-                    .cancel__button {
-                        width: 115px;
-                        height: 45px;
-                        line-height: 40px;
-                        color: #4B4F56;
-                        background-color: #E4E6EB;
-                        border-radius: 6px;
-                        text-align: center;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .get_code {
+                        margin-bottom: 0px;
                         text-decoration: none;
-                        font-size: 20px;
-                        font-weight: 600;
                     }
+                  
 
-                    .search__button {
-                        width: 115px;
-                        height: 45px;
-                        line-height: 41px;
-                        color: #FFF;
-                        background-color: #216FDB;
-                        border-radius: 6px;
-                        text-align: center;
-                        font-size: 20px;
-                        font-weight: 600;
-                        border: none;
-                        transition: all .2s;
+                    .button__group {
+                        display: flex;
+                        gap: 10px;
 
-                        &:hover {
-                            background-color: #365899;
-                            border-color: #365899;
+                        .cancel__button {
+                            width: 115px;
+                            height: 45px;
+                            line-height: 40px;
+                            color: #4B4F56;
+                            background-color: #E4E6EB;
+                            border-radius: 6px;
+                            text-align: center;
+                            text-decoration: none;
+                            font-size: 20px;
+                            font-weight: 600;
+                        }
+    
+                        .search__button {
+                            width: 115px;
+                            height: 45px;
+                            line-height: 41px;
+                            color: #FFF;
+                            background-color: #216FDB;
+                            border-radius: 6px;
+                            text-align: center;
+                            font-size: 20px;
+                            font-weight: 600;
+                            border: none;
+                            transition: all .2s;
+    
+                            &:hover {
+                                background-color: #365899;
+                                border-color: #365899;
+                            }
                         }
                     }
                     

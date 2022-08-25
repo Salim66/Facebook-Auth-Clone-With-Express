@@ -1,0 +1,186 @@
+.home__container {
+    width: 100%;
+    height: 100%;
+
+    
+
+    .body__section {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        background-color: #F0F2F5;
+
+        .body__wrapper {
+            margin-top: 100px;
+            width: 100%;
+            display: flex;
+
+
+            .body__left {
+                width: 23%;
+            }
+
+            .body__middle {
+                width: 54%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+
+                .post__card {
+                    width: 600px;
+                    height: 160px;
+                    background-color: #FFF;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+                    .post__create--link {
+                        display: flex;
+                        gap: 10px;
+                        
+                        .profile__photo {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+
+                        .create__input {
+                            flex-grow: 1;
+                            border: none;
+                            background-color: #F0F2F5;
+                            border-radius: 50px;
+                            padding: 0px 15px;
+                            font-size: 21px;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .divider {
+                        width: 100%;
+                        height: 1px;
+                        background-color: #F0F2F5;
+                        margin: 15px 0px;
+                    }
+
+                    .post__create-ul {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        list-style: none;
+                        margin-bottom: 0px;
+                        padding-top: 5px;
+
+                        .post__create-li {
+
+
+                            .post__create-link {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                margin-bottom: 0px;
+                                text-decoration: none;
+
+                                svg {
+                                    width: 30px;
+                                    height: 30px;
+
+                                }
+
+                                span {
+                                    font-size: 19px;
+                                    font-weight: 600;
+                                    color: #99A49C;
+                                }
+                            }
+
+                            .live {
+                                svg {
+                                    color: #E73F5A;
+                                }
+                            }
+
+                            .photo {
+                                svg {
+                                    color: #41B35D;
+                                }
+                            }
+
+                            .feeling {
+                                svg {
+                                    color: #ECC058;
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                .story__card {
+                    width: 720px;
+                    height: 90px;
+                    background-color: #FFF;
+                    padding: 10px;
+                    border-radius: 10px;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                    display: flex;
+                    align-items: center;
+
+                    .story__contain {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        width: 100%;
+                        padding: 7px;
+
+                        &:hover {
+                            background-color: #F2F2F2;
+                            border-radius: 10px;
+                        }
+
+                        .plus__link {
+                            width: 50px;
+                            height: 50px;
+                            background-color: #DBE7F2;
+                            color: #1B74E4;
+                            border-radius: 50%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            .plus__icon {
+                                font-size: 30px;
+                            }
+                        }
+
+                        .story__text {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            text-decoration: none;
+
+                            .create__stroy {
+                                color: #05051C;
+                                font-size: 21px;
+                            }
+
+                            .share__a-photo {
+                                margin-bottom: 0px;
+                                color: #606266;
+                                font-size: 18px;
+                            }
+                        }
+                    
+                    }
+
+                }
+            }
+
+            .body__right {
+                width: 23%;
+            }
+        }
+    }
+
+}
