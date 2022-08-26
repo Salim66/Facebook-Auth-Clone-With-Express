@@ -9,11 +9,15 @@ import { useContext } from 'react';
 import cookie from 'js-cookie';
 import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import LoaderContext from '../../context/LoaderContext';
 
 const Home = () => {
 
     // call context api 
     const { dispatch, user } = useContext(AuthContext);
+
+    // call loader context api
+    const { loaderDispatch } = useContext(LoaderContext);
 
     // use Navigate
     const { navigate } = useNavigate();
@@ -27,6 +31,9 @@ const Home = () => {
 
         // set dispatch
         dispatch({ type: "USER_LOGOUT" })
+
+        // update loader reducer
+        loaderDispatch({ type: 'LOADER_START' });
 
         navigate('/login');
 

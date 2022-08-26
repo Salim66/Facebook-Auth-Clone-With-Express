@@ -10,6 +10,7 @@ import './Login.scss';
 import { errorToast } from '../../utility/errorToast';
 import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
+import LoaderContext from '../../context/LoaderContext';
 
 function Login() {
 
@@ -39,6 +40,9 @@ function Login() {
   // call context api
   const { dispatch } = useContext(AuthContext);
 
+  // call loader context api
+  const { loaderDispatch } = useContext(LoaderContext);
+
   // handle login form
   const handleLoginForm = async (e) => {
     e.preventDefault();
@@ -58,7 +62,9 @@ function Login() {
           cookie.set('user', JSON.stringify(res.data.user));
 
           // set dispatch
-          dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data.user })         
+          dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data.user })  
+          
+          loaderDispatch({ type: 'LOADER_START' });
     
           navigator('/');
 

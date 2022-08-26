@@ -13,6 +13,8 @@ import AuthContext from './context/AuthContext';
 import cookie from 'js-cookie';
 import { useEffect } from 'react';
 import axios from 'axios';
+import LoadingBar from 'react-top-loading-bar'
+import LoaderContext from './context/LoaderContext';
 
 
 function App() {
@@ -47,11 +49,21 @@ function App() {
       }
   
     }, [token] );
+    
+
+    // call loader context api
+    const { loaderState, loaderDispatch } = useContext(LoaderContext);
 
     
 
   return (
     <>
+     
+      <LoadingBar
+          color='#f11946'
+          progress={ loaderState }
+          onLoaderFinished={ () => loaderDispatch({ type: 'LOADER_END' }) }
+      />
 
       <ToastContainer
         position="top-right"
