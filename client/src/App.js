@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import LoadingBar from 'react-top-loading-bar'
 import LoaderContext from './context/LoaderContext';
+import { errorToast } from './utility/errorToast';
+import Cookies from 'js-cookie';
 
 
 function App() {
@@ -37,7 +39,12 @@ function App() {
         })
         .then( res => {
   
+          if(res.data.isVerified){
             dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data })
+          }else {
+            errorToast('Please verify your account!');
+            Cookies.remove('token');
+          }
          
         } )
         .catch( error => {

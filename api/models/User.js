@@ -48,6 +48,10 @@ const userSchema = mongoose.Schema({
     photo : {
         type: String
     },
+    isVerified : {
+        type: Boolean,
+        default: false
+    },
     isAdmin : {
         type: Boolean,
         default: false

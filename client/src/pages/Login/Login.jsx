@@ -58,15 +58,21 @@ function Login() {
         await axios.post('http://localhost:5050/api/user/login', input)
         .then( res => {
 
-          cookie.set('token', res.data.token);
-          cookie.set('user', JSON.stringify(res.data.user));
+          if(res.data.user.isVerified){
+            cookie.set('token', res.data.token);
+            cookie.set('user', JSON.stringify(res.data.user));
+  
+            // set dispatch
+            dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data.user })  
+            
+            loaderDispatch({ type: 'LOADER_START' });
+      
+            navigator('/');
+          }else {
+            errorToast('Please verifiy your account');
+          }
 
-          // set dispatch
-          dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data.user })  
           
-          loaderDispatch({ type: 'LOADER_START' });
-    
-          navigator('/');
 
         });
 
