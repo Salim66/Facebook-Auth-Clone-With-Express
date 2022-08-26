@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { SendEmail } from '../utility/SendEmail.js';
 import Token from '../models/Token.js';
 import { createToken } from '../utility/CreateToken.js';
+import { json } from 'express';
 
 
 /**
@@ -275,6 +276,134 @@ export const userAccountVerify = async (req, res, next) => {
             verify.remove();
         }
 
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+/**
+ * @access public
+ * @routes /api/user/forgotten-password
+ * @method POST 
+ */
+export const userforgottenPassword = async (req, res, next) => {
+
+    try {
+        
+        // get data
+        const { email } = req.body;
+
+        // get recovery user
+        const recovery_user = await User.findOne({ email });
+
+        if( !recovery_user ){
+            res.status(404).json({
+                message: "Email dosen't exists"
+            })
+        }
+
+        if( recovery_user ){
+
+            // Create Random Number 6 Digits
+            let token_code = Math.floor(Math.random()*900000) + 100000;
+            // const recovery_url = `http://localhost:3000/recovery-code//${token}`;
+
+            await Token.create({
+                userId: recovery_user._id,
+                token: token_code
+            });
+
+            SendEmail(recovery_user.email, 'Recovery Code', `Your recovery code is ${token_code}`);
+
+            res.status(200).json({
+                'message': 'Password recovery link send!',
+                "user_id": recovery_user._id
+            });
+
+
+        }
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+
+/**
+ * @access private
+ * @routes /api/user/recovey-code
+ * @method POST 
+ */
+export const verifyRecoveyCode = async (req, res, next) => {
+
+    try {
+        
+        // get body data
+        const { user_id, code } = req.body;
+        
+        // verify user_id and code
+        const verify_user_code = await Token.findOne({ userId: user_id, token: code });
+
+        if( !verify_user_code ){
+            res.status(404).json({
+                'message' : "Verify Code doesn't match!"
+            });
+        }
+
+        if( verify_user_code ){
+            res.status(200).json({
+                'message': 'Please insert your new password!',
+                "user_id": user_id
+            });
+        }
+
+        res.send(verify_user_code);
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+/**
+ * @access private
+ * @routes /api/user/update-password
+ * @method POST 
+ */
+export const userUpdatePassword = async (req, res, next) => {
+
+    try {
+        
+        // get body data
+        const { user_id, password } = req.body;
+
+        // verify user find
+        const user = await User.findById(user_id);
+
+        if( !user ){
+            res.status(404).json({
+                "message": "Your not found!"
+            });
+        }
+
+        if( user ){
+
+            // make hash password
+            const salt = await bcrypt.genSalt(10);
+            const hash_pass = await bcrypt.hash(password, salt);
+
+            await User.findByIdAndUpdate(user_id, {
+                "password": hash_pass
+            });
+
+            res.status(200).json({
+                "message": "Password change successfully"
+            });
+
+        }
 
     } catch (error) {
         next(error);

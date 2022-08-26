@@ -79,7 +79,7 @@ function Login() {
       }
 
     } catch (error) {
-      swal('Error', error, 'error');
+      swal("Wrong Password");
       console.log(error);
     }
 

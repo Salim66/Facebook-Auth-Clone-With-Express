@@ -1,8 +1,47 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import FooterAuth from '../../components/FooterAuth/FooterAuth';
+import { errorToast } from '../../utility/errorToast';
 import './RecoveryCode.scss';
+import { successToast } from '../../utility/successToast';
 
 const RecoveryCode = () => {
+
+    // use params
+    const { user_id } = useParams();
+    // use state
+    const [code , setCode] = useState();
+    // use naviagate
+    const navigate = useNavigate();
+
+
+    // handle recovery code form
+    const handleRecoveyCodeForm = (e) => {
+        e.preventDefault();
+
+        if( !code ){
+            errorToast('Please insert your verify code!');
+        }else {
+
+            axios.post(`http://localhost:5050/api/user/recovery-code`, { user_id, code })
+            .then( res => {
+
+                successToast("Please inset your new password");
+                navigate(`/recovery-password/${res.data.user_id}`);
+
+            })
+            .catch( error => {
+                errorToast("Your verify code doesn't match!");
+            });
+
+        }
+
+    }
+
+
+
   return (
     <>
         <div className="forgot__header-container">
@@ -18,12 +57,12 @@ const RecoveryCode = () => {
         <div className="body__container">
             <div className="body__wrapper">
                 <div className="body__card">
-                    <form action="#" className="body__form">
+                    <form onSubmit={ handleRecoveyCodeForm } className="body__form">
                         <h4 className="find__you-account">Enter security code</h4>
                         <div className="divider"></div>
                         <div className="please__enter-text">Please check your emails for a message with your code. Your code is 6 numbers long.</div>
-                        <div className="input__group">
-                            <input type="text" name="code" id="" className="email__address" placeholder='Enter code' />
+                        <div className="rec_input__group">
+                            <input type="text" name="code" id="" className="email__address" placeholder='Enter code' value={ code } onChange={ e => setCode(e.target.value) } />
                             <div className="input__info">
                                 <p className="info__text">We sent your code to:</p>
                                 <span className='info__email'>amazonjohnnydepp66@gmail.com</span>
@@ -34,7 +73,7 @@ const RecoveryCode = () => {
                             <a href="#" className="get_code">Didn't get a code?</a>
                             <div className="button__group">
                                 <a href="#" className="cancel__button">Cancel</a>
-                                <button className="search__button">Continue</button>
+                                <button type='submit' className="search__button">Continue</button>
                             </div>             
                         </div>
                     </form>                    

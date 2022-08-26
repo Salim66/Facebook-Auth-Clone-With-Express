@@ -1,8 +1,46 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 import FooterAuth from '../../components/FooterAuth/FooterAuth';
+import { errorToast } from '../../utility/errorToast';
+import { successToast } from '../../utility/successToast';
 import './ForgottenPassword.scss';
+import { useNavigate } from 'react-router-dom';
 
 const ForgottenPassword = () => {
+
+    // use state 
+    const [email, setEmail] = useState();
+    // use navigate
+    const navigate = useNavigate();
+
+    // handle forgotten password form
+    const handleForgottenPassword = async (e) => {
+        e.preventDefault();
+
+        try{
+
+            if( !email ){
+                errorToast('Please insert email!');
+            }else {
+
+                axios.post('http://localhost:5050/api/user/forgotten-password', { email })
+                .then( res => {
+                    successToast('A recovery code is send your email');
+                    navigate(`/recovery-code/${res.data.user_id}`);
+                })
+                .catch( error => {
+                    errorToast('Email is not exists!');
+                })
+
+            }
+
+        }catch(error){
+            console.log(error);
+        }
+
+    }
+
   return (
     <>
         <div className="forgot__header-container">
@@ -25,11 +63,11 @@ const ForgottenPassword = () => {
         <div className="body__container">
             <div className="body__wrapper">
                 <div className="body__card">
-                    <form action="#" className="body__form">
+                    <form onSubmit={ handleForgottenPassword } className="body__form">
                         <h4 className="find__you-account">Find Your Account</h4>
                         <div className="divider"></div>
                         <div className="please__enter-text">Please enter your email address or mobile number to search for your account.</div>
-                        <input type="text" name="email" id="" className="email__address" placeholder='Email address or mobile number' />
+                        <input type="text" name="email" id="" className="email__address" placeholder='Email address or mobile number' value={ email } onChange={ e => setEmail(e.target.value) } />
                         <div className="divider"></div>
                         <div className="buttons">
                             <a href="#" className="cancel__button">Cancel</a>

@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import FooterAuth from '../../components/FooterAuth/FooterAuth';
+import { errorToast } from '../../utility/errorToast';
+import { successToast } from '../../utility/successToast';
 import './RecoveryPassword.scss';
 
 const RecoveryPassword = () => {
+
+    // use params
+    const { user_id } = useParams();
+    // use state
+    const [password , setPassword] = useState();
+    // use naviagate
+    const navigate = useNavigate();
+
+
+    // handle update password form
+    const handleUpdatePassword = (e) => {
+        e.preventDefault();
+
+        if( !password ){
+            errorToast('Please insert your new password!');
+        }else {
+
+
+            axios.post(`http://localhost:5050/api/user/verify-update-password`, { user_id, password })
+            .then( res => {
+
+                successToast("Please login your account");
+                navigate('/login');
+
+            })
+            .catch( error => {
+                errorToast("Sorry, please try again!");
+                console.log(error);
+            });
+
+        }
+
+    }
+
   return (
     <>
         <div className="forgot__header-container">
@@ -18,12 +56,12 @@ const RecoveryPassword = () => {
         <div className="body__container">
             <div className="body__wrapper">
                 <div className="body__card">
-                    <form action="#" className="body__form">
+                    <form onSubmit={ handleUpdatePassword } className="body__form">
                         <h4 className="find__you-account">Choose a new password</h4>
                         <div className="divider"></div>
                         <div className="please__enter-text">Create a new password that is at least 6 characters long. A strong password has a combination of letters, digits and punctuation marks.</div>
                         <div className="input__group">
-                            <input type="text" name="code" id="" className="email__address" placeholder='New Password' />
+                            <input type="password" name="code" id="" className="email__address" placeholder='New Password' value={ password } onChange={ e => setPassword(e.target.value) } />
                             <div className="input__info">
                                 <a href="#" className="password__pattern">?</a>
                             </div>
@@ -31,7 +69,7 @@ const RecoveryPassword = () => {
                         <div className="divider"></div>
                         <div className="buttons">
                             <a href="#" className="cancel__button">Cancel</a>
-                            <button className="search__button">Continue</button>           
+                            <button type='submit' className="search__button">Continue</button>           
                         </div>
                     </form>                    
                 </div>

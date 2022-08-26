@@ -89,8 +89,8 @@ function App() {
         <Route path="/" element={ <AuthenticateUser><Home/></AuthenticateUser> } />
         <Route path="/login" element={ <AuthRedirectUser><Login/></AuthRedirectUser> } />
         <Route path="/forgotten-password" element={ <AuthRedirectUser><ForgottenPassword /></AuthRedirectUser> } />
-        <Route path="/recovery-code/:id" element={ <AuthRedirectUser><RecoveryCode /></AuthRedirectUser> } />
-        <Route path="/recovery-password/:id" element={ <AuthRedirectUser><RecoveryPassword /></AuthRedirectUser> } />
+        <Route path="/recovery-code/:user_id" element={ <AuthRedirectUser><RecoveryCode /></AuthRedirectUser> } />
+        <Route path="/recovery-password/:user_id" element={ <AuthRedirectUser><RecoveryPassword /></AuthRedirectUser> } />
         <Route path="/:token" element={ <Verify /> } />
       </Routes>
     </>
