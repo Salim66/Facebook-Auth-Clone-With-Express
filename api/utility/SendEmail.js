@@ -6,11 +6,11 @@ export const SendEmail = (to, subject, text) => {
     try {
         
         var transport = nodemailer.createTransport({
-            host: "smtp.mailtrap.io",
-            port: 2525,
+            host: "smtp.gmail.com",
+            port: 587,
             auth: {
-              user: "c3a07cb7daabcc",
-              pass: "a204e9e80f2ad9"
+              user: "shrvdev624466@gmail.com",
+              pass: "zuapdacevebvniok"
             }
           });
     
