@@ -4,20 +4,20 @@
 const AuthReducer = ( state, { type, payload } ) => {
 
     switch (type) {
-        case 'USER_LOGIN':
+        case 'LOGIN_USER_SUCCESS':
             return ({
-                token: payload.token,
-                user: payload.user,
-            })
+                isUserLoggedIn: true,
+                user: payload,
+            });
             break;
-
+        
         case 'USER_LOGOUT': 
-            return ({
-                token: '',
-                user: ''
-            })
+            return {
+                isUserLoggedIn: false,
+                user: { }
+            }
             break;
-
+    
         default:
             return state;
             break;
@@ -26,4 +26,4 @@ const AuthReducer = ( state, { type, payload } ) => {
 }
 
 // export auth reducer
-export default AuthReducer; 
+export default AuthReducer;

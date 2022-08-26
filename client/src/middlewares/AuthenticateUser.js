@@ -8,9 +8,9 @@ import { Navigate } from 'react-router-dom';
 const AuthenticateUser = ({ children }) => {
 
     // call context api
-    const { token } = useContext(AuthContext);
+    const { isUserLoggedIn } = useContext(AuthContext);
 
-    return token ? children : <Navigate to='/login' />
+    return isUserLoggedIn ? children : <Navigate to='/login' />
 
 }
 

@@ -8,9 +8,48 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthenticateUser from './middlewares/AuthenticateUser';
 import AuthRedirectUser from './middlewares/AuthRedirectUser';
+import { useContext } from 'react';
+import AuthContext from './context/AuthContext';
+import cookie from 'js-cookie';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
 function App() {
+
+    // call contaxt api
+    const { dispatch } = useContext(AuthContext);
+
+    // get  token from js-cookie
+    const token = cookie.get('token');
+
+
+    useEffect( () => {
+
+      try {
+        
+        axios.get('http://localhost:5050/api/user/me', {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        })
+        .then( res => {
+  
+            dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data })
+         
+        } )
+        .catch( error => {
+            dispatch({ type: "USER_LOGOUT" });
+        } )
+  
+      } catch (error) {
+       
+      }
+  
+    }, [token] );
+
+    
+
   return (
     <>
 

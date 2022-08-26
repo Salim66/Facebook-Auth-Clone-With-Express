@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
 
     // call context api 
-    const { dispatch } = useContext(AuthContext);
+    const { dispatch, user } = useContext(AuthContext);
 
     // use Navigate
     const { navigate } = useNavigate();
@@ -32,6 +32,7 @@ const Home = () => {
 
     }
 
+
   return (
     <>
         <div className="home__container">
@@ -44,7 +45,7 @@ const Home = () => {
                             <li className="left__li">
                                 <a href="#" className="left__link">
                                     <img src="https://scontent.fdac139-1.fna.fbcdn.net/v/t39.30808-1/289299725_111498711595724_7321915509387888887_n.jpg?stp=c0.0.40.40a_cp0_dst-jpg_p40x40&_nc_cat=106&ccb=1-7&_nc_sid=dbb9e7&_nc_ohc=8pU_F3C2DtAAX-x9P1e&_nc_ht=scontent.fdac139-1.fna&oh=00_AT995tNcyz1sUxrr8uJD0EFAzm5pS7JXaJ0YRxS-tDbC0Q&oe=630C79DA" alt="" className="left__link-logo" />
-                                    <h5 className="username">Johnny Depp</h5>
+                                    <h5 className="username">{ user.name }</h5>
                                 </a>
                             </li>
                             <li className="left__li">

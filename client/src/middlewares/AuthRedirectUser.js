@@ -8,9 +8,9 @@ import AuthContext from "../context/AuthContext"
 const AuthRedirectUser = ({ children }) => {
 
     // call context api
-    const { token } = useContext(AuthContext);
+    const { isUserLoggedIn } = useContext(AuthContext);
 
-    return token ? <Navigate to='/' /> : children
+    return isUserLoggedIn ? <Navigate to='/' /> : children
 
 }
 

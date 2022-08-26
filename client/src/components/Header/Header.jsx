@@ -1,6 +1,8 @@
 import React from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
 import { BsSearch } from "react-icons/bs";
+import AuthContext from '../../context/AuthContext';
 import Logo from './fb_logo.png';
 import './Header.scss';
 
@@ -24,6 +26,9 @@ const Header = () => {
       setToggleTab(index);
       return false;
   }
+
+  // call context api
+  const { user } = useContext(AuthContext);
 
   return (
     <>

@@ -1,9 +1,9 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 
-// create context api
+// Create context
 const AuthContext = createContext();
 
 
-// export default context
+// export context
 export default AuthContext;

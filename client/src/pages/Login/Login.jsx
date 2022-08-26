@@ -58,9 +58,8 @@ function Login() {
           cookie.set('user', JSON.stringify(res.data.user));
 
           // set dispatch
-          dispatch({ type: 'USER_LOGIN', payload: res.data });
-          
-
+          dispatch({ type: "LOGIN_USER_SUCCESS", payload: res.data.user })         
+    
           navigator('/');
 
         });
