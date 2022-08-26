@@ -4,6 +4,8 @@ import User from '../models/User.js';
 import createError from './errorController.js';
 import jwt from 'jsonwebtoken';
 import { SendEmail } from '../utility/SendEmail.js';
+import Token from '../models/Token.js';
+import { createToken } from '../utility/CreateToken.js';
 
 
 /**
@@ -177,7 +179,16 @@ export const userRegister = async (req, res, next) => {
         
         const user = await User.create({ ...req.body, password: hash_pass });
 
-        SendEmail(user.email, 'Facebook', `${user.name} welcome to our Facebook Clone`);
+        // create token
+        const token = createToken({ id: user._id });
+
+        // update token
+        await Token.create({ userId: user._id, token: token });
+
+        // Send Activation Link
+        const verify_link = `http://localhost:3000/${token}`;
+
+        SendEmail(user.email, 'Facebook Verification Link', verify_link);
 
         res.status(200).json(user);
 
@@ -224,6 +235,44 @@ export const getLoggedInUser = async (req, res, next) => {
                 res.status(200).json(user);
             }
 
+        }
+
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+
+/**
+ * @access private
+ * @routes /api/user/verify
+ * @method POST
+ */
+export const userAccountVerify = async (req, res, next) => {
+
+    try {
+        
+        const { token } = req.body;
+
+        // verify token
+        const { id } = jwt.verify(token, process.env.JWT_SECRET); 
+
+        // check token
+        const verify = await Token.findOne({ userId: id, token: token });
+
+        // check verify
+        if( !verify ){
+            next(createError(404, 'Invalid verify url'));
+        }
+
+        if( verify ){
+            await User.findByIdAndUpdate(id, {
+                isVerified: true 
+            })
+            res.status(200).json({ message: 'User Account Verified Successfully' });
+            verify.remove();
         }
 
 

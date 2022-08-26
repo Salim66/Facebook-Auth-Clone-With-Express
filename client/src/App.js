@@ -17,6 +17,7 @@ import LoadingBar from 'react-top-loading-bar'
 import LoaderContext from './context/LoaderContext';
 import { errorToast } from './utility/errorToast';
 import Cookies from 'js-cookie';
+import Verify from './components/Verify/Verify';
 
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
         <Route path="/forgotten-password" element={ <AuthRedirectUser><ForgottenPassword /></AuthRedirectUser> } />
         <Route path="/recovery-code/:id" element={ <AuthRedirectUser><RecoveryCode /></AuthRedirectUser> } />
         <Route path="/recovery-password/:id" element={ <AuthRedirectUser><RecoveryPassword /></AuthRedirectUser> } />
+        <Route path="/:token" element={ <Verify /> } />
       </Routes>
     </>
   );
